@@ -80,12 +80,12 @@ def google_register(username:str, email:str, full_name:str, google_id:int, bio:s
     return user
 
 
-def google_login_func(request, restrict_login:str=RESTRICT_LOGIN):
+def google_login_func(request, restrict_login:list=RESTRICT_LOGIN):
     code = request.DATA.get('code', None)
     token = request.DATA.get('token', None)
 
     user_info = connector.me(code)
-    if RESTRICT_LOGIN != None and user_info.email.split("@")[1] != restrict_login[0]:
+    if restrict_login and user_info.email.split("@")[1] not in restrict_login:
         raise GoogleApiError({"error_message": ("Login with this Google account is disabled.")})
 
     user = google_register(username=user_info.username,
