@@ -180,6 +180,6 @@ def me(access_code:str) -> tuple:
 
     profile = jwt.decode(idt, verify=False)
 
-    return User(id=profile['email'].split("@")[0],username=profile['email'].split("@")[0],full_name= "",email=profile['email'],bio= "")
+    return User(id=profile['email'],username=profile['email'].split("@")[0],full_name= "",email=profile['email'],bio= "")
 
 
